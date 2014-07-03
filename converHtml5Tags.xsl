@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <!-- ============================================================= -->
-<!--  MODULE:    HTML5 to HTML4, convert tags                      -->
+<!--  MODULE:    HTML5 to HTML4, convert content tags              -->
 <!--  VERSION:    1.0                      DATE: 2014-07-02        -->
 <!-- ============================================================= -->
 
@@ -12,7 +12,7 @@
 
   <!-- TAG FILTERS: -->
 
-  <xsl:template match="section|footer"><!-- display block tags -->
+  <xsl:template match="aside|header|footer|main|figure|figcaption|template|nav|article|section|"><!-- display block tags -->
     <xsl:variable name="addSp"><xsl:if test="normalize-space(@class)">' '</xsl:if></xsl:variable>
     <div>
       <xsl:attribute name="class"><xsl:value-of select="concat($prefix,local-name(),$addSp,@class)" /></xsl:attribute>
@@ -20,13 +20,16 @@
     </div>
   </xsl:template>
 
-  <xsl:template match="q"><!-- display inline tags -->
+  <xsl:template match="time|mark|ruby|rt|rp|bdi"><!-- display inline tags -->
     <xsl:variable name="addSp"><xsl:if test="normalize-space(@class)">' '</xsl:if></xsl:variable>
     <span>
       <xsl:attribute name="class"><xsl:value-of select="concat($prefix,local-name(),$addSp,@class)" /></xsl:attribute>
       <xsl:apply-templates/>
     </span>
   </xsl:template>
+
+  <xsl:template match="data"><span data-value="{@value}"><xsl:apply-templates/></span></xsl:template>
+  <xsl:template match="wbr"><br/></xsl:template>
 
 
   <!-- IDENTITY -->

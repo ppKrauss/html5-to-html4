@@ -14,3 +14,5 @@ Need some control:
 
 * class aditiction rule (when there are already a class):  `<nav class="old">etc.</nav>` turns `<div class="nav old">etc.</div>`
 
+## Goals ##
+For a complete translation you need something as a framework... The goal here is to **transform contents**.
