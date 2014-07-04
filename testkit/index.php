@@ -1,13 +1,30 @@
 <?php
+/**
+ * Testkit core, runs the XSLT with a requested input.
+ *
+ * On terminal (STDIN as default): $php index.php example1.htm > lix.htm
+ * Online (example1 as default) or: http://localhost/html5-to-html4/testkit?file=example2.htm
+ */
 
-print XSL_transf('./ex1.htm','../converHtml5Tags.xsl');
+if (isset($argv[0])) {
+	// TERMINAL:
+	array_shift($argv);
+	$file = empty($argv)? 'php://stdin': $argv[0];
+} else {
+	// ONLINE:
+	$file = isset($_REQUEST['file'])? $_REQUEST['file']: './example1.htm';
+}
+print filterHTML($file);
 
-function XSL_transf($htmFile,$xslFile) {
 
+/**
+ * Generic XSLT filter that inputs an HTML file and outputs it as filtered string.
+ */
+function filterHTML($htmFile,$xslFile='../html5-to-html4.xsl') {
 	$xmldoc = new DOMDocument();
-	// if errors here, try https://github.com/Masterminds/html5-php
 	$xmldoc->resolveExternals = true;
-	@$xmldoc->loadHTMLFile($htmFile,LIBXML_NOWARNING | LIBXML_NOERROR);
+	@$xmldoc->loadHTMLFile($htmFile,LIBXML_NOWARNING | LIBXML_NOERROR); 	
+	// another (ugly) way to load is https://github.com/Masterminds/html5-php
 
 	$xsldoc = DOMDocument::load($xslFile);
 
