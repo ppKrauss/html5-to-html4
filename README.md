@@ -34,3 +34,12 @@ You mind boggles as to why your database would know or care if something is HTML
 * ...
 
 The XSLT is also a good starting point for programmers that want to understand and to summarise the HTML5 changes, and the impact of then in old HTML4 frameworks.
+
+### HTML with only content ###
+Many applications with a "HTML upload" interface, and many [Document Management Systems (DMSs and old EDMs)](https://en.wikipedia.org/wiki/Document_management_system) supposed that user is sending full-text content in a whole HTML document (only relevant content are into the tag `body`). This is, perhaps, because HTML is the "lingua franca" and the best way to do content-interchange.
+
+So, in that context, HTML must be interpreted as "only content" (no text is about menus, sidebars, Javascript, etc.). In that conetxt arises a HTML's DTD variant that can be named "SIMPLIFIED  HTML FOR NON-INTERACTIVE CONTENT" (*OnlyContent*).
+
+So the second XSLT, `onlyContent-filter.xsl`, is about it: a proposal to a DTD and a standard transform for this simplified format.
+
+Another usual (complex) task in this context is to transform all the CSS, and all `class` attributes, into `style` attributes (see. ex. [CssToInlineStyles](https://github.com/tijsverkoyen/CssToInlineStyles) project); where the use of old `font` and `center`  tags, as well normalization of bolds and italics, can be accomplished.
